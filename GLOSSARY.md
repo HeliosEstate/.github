@@ -118,8 +118,8 @@ what the term is not.
 
 - **authenticated helper program**: a helper program that has proven which helper it is on the
   channel that delivers its secrets.
-- **bootstrap file**: the per-server file holding the database connection, the server's database
-  account, the vault key and the server's private keys. Not the shared vault.
+- **bootstrap file**: the per-server file holding the server's ID, the database connection, the
+  server's database account, the vault key and the server's private keys. Not the shared vault.
 - **bootstrap folder**: the folder, owned by the service account, that holds the bootstrap file,
   separate from the program folder. Not the database's data folder.
 - **bootstrap key**: the random 256-bit key a server's bootstrap file is sealed under, held only by
