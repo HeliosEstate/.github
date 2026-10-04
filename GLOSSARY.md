@@ -188,9 +188,9 @@ what the term is not.
   value in the configuration.
 - **vault key**: the one key every server keeps in its bootstrap file; each value's working key is
   derived from it; never stored in the database.
+- **vault-key change**: replacing the vault key and re-encrypting every value under the new one.
 - **vault-key fields**: the bootstrap file's fields that hold the vault key, the old and the new one
   during a vault-key change; the only fields `hadv-service` changes. Not the vault-key version.
-- **vault-key change**: replacing the vault key and re-encrypting every value under the new one.
 - **vault-key schedule**: the yearly vault-key change, on by default, settable from 45 days to two
   years, switched off only by the #1 Sysop. Not the event subsystem's schedule as a whole.
 - **working key**: the key that encrypts one write of one value, derived from the vault key, owner,
