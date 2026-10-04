@@ -106,18 +106,28 @@ what the term is not.
 
 - **authenticated helper program**: a helper program that has proven which helper it is on the
   channel that delivers its secrets.
-- **bootstrap file**: the per-server file holding the database connection, settings such as pool
-  size, the vault key and the server's private keys. Not the shared vault.
-- **bootstrap key subsystem**: the per-server subsystem that seals that server's bootstrap file with
-  the OS credential store and unlocks it at startup. Not the shared secrets subsystem.
+- **bootstrap file**: the per-server file holding the database connection, the server's database
+  account, the vault key and the server's private keys. Not the shared vault.
+- **bootstrap folder**: the folder, owned by the service account, that holds the bootstrap file,
+  separate from the program folder. Not the database's data folder.
+- **bootstrap key**: the random 256-bit key a server's bootstrap file is sealed under, held only by
+  that server's OS credential store (or, by the sysop's explicit choice, a key file). Not the vault
+  key.
+- **bootstrap key subsystem**: the per-server subsystem that keeps the bootstrap file sealed under
+  the bootstrap key, has the OS credential store seal that key, and unlocks the file for
+  `hadv-setup` and `hadv-service`. Not the shared secrets subsystem.
 - **copy** (of the vault key): the vault key encrypted to one server's or the recovery key's public
   key, and signed. Used in no other sense: never a clipboard copy.
-- **format version**, **vault-key version**: recorded on every value: which cipher and derivation,
-  and which vault key encrypted it. Not the engine release.
+- **format version**: recorded on every value, every copy of the vault key and the head of every
+  bootstrap file: which layout, cipher and derivation it uses. **vault-key version**: recorded on
+  every value: which vault key encrypted it. Neither is the engine release.
+- **key file**: a file the sysop makes, holding the bootstrap key as base64, used only where no OS
+  credential store fits and only by the sysop's explicit choice. The bootstrap key in it is not
+  sealed.
 - **not set**, **refused**: the read results besides a value and unavailable: no value stored; the
   reader is not the secret's owner.
-- **OS credential store**: the operating system's own secret store, used by the bootstrap key
-  subsystem.
+- **OS credential store**: the store that seals a server's bootstrap key: the CNG key store on
+  Windows, systemd credentials on Linux, a Swarm secret in a container. Not the key file.
 - **owner**: the engine subsystem or helper program a secret belongs to, named when it is stored;
   the only one that reads it, or, for a helper program, the only one it is delivered to. Not the
   owning subsystem of a stored file.
@@ -128,8 +138,13 @@ what the term is not.
   password.
 - **recovery copy**: the copy of the vault key made for the recovery key. Not a backup.
 - **recovery key pair**: the key pair whose private half the recovery code rebuilds.
+- **seal** / **unseal**: to encrypt with authenticated encryption, so that the thing is hidden and
+  any change to it is detected; to unseal is to decrypt it and check it. Said of a value, a key or
+  a file, always naming what it is sealed under or by.
 - **secret**: one owner's named entry in the shared vault: its owner, identity and value. Not a
   "shared secret" in the protocol sense; that is a session password.
+- **service account**: the dedicated low-privilege OS account `hadv-service` runs under. Not a
+  database account.
 - **shared secrets subsystem**: the part of the engine that keeps the secrets every server needs,
   encrypted in the shared vault, and hands each only to its owner.
 - **shared vault**: the shared secrets subsystem's store, in the database, holding the secrets every
@@ -138,6 +153,8 @@ what the term is not.
 - **store**, **read**, **delete**, **status**, **deliver**: the five operations on secrets, and
   nothing more. "Store" is never the OS credential store; "deliver" is only ever to a helper
   program.
+- **unlock** (the bootstrap): unseal the bootstrap key from the OS credential store (or read it from
+  the key file), then unseal the file under it.
 - **value**: the opaque bytes a secret holds, which the vault never interprets. Not a setting's
   value in the configuration.
 - **vault key**: the one key every server keeps in its bootstrap file; each value's working key is
