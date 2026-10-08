@@ -132,15 +132,22 @@ what the term is not.
   sealed under. Not the shared secrets subsystem.
 - **copy** (of the vault key): the vault key encrypted to one server's or the recovery key's public
   key, and signed. Used in no other sense: never a clipboard copy.
+- **credential folder**: the folder systemd gives a service when it starts, holding the credentials
+  it decrypted for that service. Not the bootstrap folder.
 - **create** / **open** / **save** (a bootstrap file): to create is for `hadv-setup` to make a new
   bootstrap file, at first setup, joining, joining again or restore; to open is to get the bootstrap
   key from its key holder, then unseal the file under it; to save is to write a changed file beside
   the old one and rename it over the old one in one step.
 - **envelope**: what surrounds the bootstrap file's named fields: the format version, the sealing and
   the layout. Not the fields themselves.
+- **field**: one named record inside the sealed part of the bootstrap file, such as the server ID,
+  the database connection or a vault key. Never part of the header.
 - **format version**: recorded on every value, every copy of the vault key and the head of every
   bootstrap file: which layout, cipher and derivation it uses. **vault-key version**: recorded on
   every value: which vault key encrypted it. Neither is the engine release.
+- **header**: the bootstrap file's unencrypted start: the magic, the format version, the key holder
+  and the sealed key; read before anything is verified. Not the envelope, which also covers the
+  sealing.
 - **host key**: systemd's per-machine credential key, kept on the server's disk, under which systemd
   credentials seal the bootstrap key, alone or with the TPM. Not an SSH host key.
 - **integrity check**: the part of sealing that detects any change to the bootstrap file, its
