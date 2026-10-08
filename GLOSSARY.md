@@ -125,9 +125,8 @@ what the term is not.
   server's database account, the vault key and the server's private keys. Not the shared vault.
 - **bootstrap folder**: the folder, owned by the service account, that holds the bootstrap file,
   separate from the program folder. Not the database's data folder.
-- **bootstrap key**: the random 256-bit key a server's bootstrap file is sealed under, held only by
-  that server's OS credential store (or, by the sysop's explicit choice, a key file). Not the vault
-  key.
+- **bootstrap key**: the random 256-bit key a server's bootstrap file is sealed under, held by the
+  key holder its header names. Not the vault key.
 - **bootstrap package**: the only code that reads or writes the bootstrap file, or the key it is
   sealed under. Not the shared secrets subsystem.
 - **copy** (of the vault key): the vault key encrypted to one server's or the recovery key's public
@@ -162,14 +161,10 @@ what the term is not.
   save overwrites it. Not a corrupt bootstrap file.
 - **looser than its rule**: open to an account the rule does not name, or giving an account more than
   the rule allows.
-- **machine key pair**: the non-exportable Windows key pair made for one server, under which the OS
-  credential store seals the bootstrap key. Not a server's receiving, signing or recovery key pair.
 - **not set**, **refused**: the read results besides a value and unavailable: no value stored; the
   reader is not the secret's owner.
 - **OS credential store**: the store that seals a server's bootstrap key: the CNG key store on
   Windows, systemd credentials on Linux, a Swarm secret in a container. Not the key file.
-- **OS software key store**: Windows' key store kept in software, holding the machine key pair where
-  there is no TPM. Not the OS credential store as a whole.
 - **owner**: the engine subsystem or helper program a secret belongs to, named when it is stored;
   the only one that reads it, or, for a helper program, the only one it is delivered to. Not the
   owning subsystem of a stored file.
@@ -204,5 +199,8 @@ what the term is not.
   during a vault-key change. Not the vault-key version.
 - **vault-key schedule**: the yearly vault-key change, on by default, settable from 45 days to two
   years, switched off only by the #1 Sysop. Not the event subsystem's schedule as a whole.
+- **Windows key**: the non-exportable RSA key a bootstrap file is sealed under on Windows: a machine
+  key named hadv- and 32 hex digits, in the TPM provider or, where there is no TPM, the software key
+  store provider. Not a server's receiving, signing or recovery key pair.
 - **working key**: the key that encrypts one write of one value, derived from the vault key, owner,
   identity and salt.
