@@ -125,21 +125,19 @@ what the term is not.
 - **bootstrap key**: the random 256-bit key a server's bootstrap file is sealed under, held only by
   that server's OS credential store (or, by the sysop's explicit choice, a key file). Not the vault
   key.
-- **bootstrap key subsystem**: the per-server subsystem that keeps the bootstrap file sealed under
-  the bootstrap key, has the OS credential store seal that key, and unlocks the file for
-  `hadv-setup` and `hadv-service`. Not the shared secrets subsystem.
-- **build** / **rewrite** (a bootstrap file): to build is for `hadv-setup` to make a new bootstrap
-  file, at first setup, joining, joining again or restore; to rewrite is to replace the existing file
-  with a changed one, written beside it and swapped in, by `hadv-setup` or `hadv-service`.
+- **bootstrap package**: the only code that reads or writes the bootstrap file, or the key it is
+  sealed under. Not the shared secrets subsystem.
 - **copy** (of the vault key): the vault key encrypted to one server's or the recovery key's public
   key, and signed. Used in no other sense: never a clipboard copy.
+- **create** / **open** / **save** (a bootstrap file): to create is for `hadv-setup` to make a new
+  bootstrap file, at first setup, joining, joining again or restore; to open is to get the bootstrap
+  key from its key holder, then unseal the file under it; to save is to write a changed file beside
+  the old one and rename it over the old one in one step.
 - **envelope**: what surrounds the bootstrap file's named fields: the format version, the sealing and
   the layout. Not the fields themselves.
 - **format version**: recorded on every value, every copy of the vault key and the head of every
   bootstrap file: which layout, cipher and derivation it uses. **vault-key version**: recorded on
   every value: which vault key encrypted it. Neither is the engine release.
-- **half-made file**: a new bootstrap file a rewrite left beside the old one without swapping it in.
-  Not a corrupt bootstrap file.
 - **host key**: systemd's per-machine credential key, kept on the server's disk, under which systemd
   credentials seal the bootstrap key, alone or with the TPM. Not an SSH host key.
 - **integrity check**: the part of sealing that detects any change to the bootstrap file, its
@@ -147,6 +145,11 @@ what the term is not.
 - **key file**: a file the sysop makes, holding the bootstrap key as base64, used only where no OS
   credential store fits and only by the sysop's explicit choice. The bootstrap key in it is not
   sealed.
+- **key holder**: one of the five ways a server's bootstrap key is held: the CNG key store on
+  Windows; systemd credentials, decrypted by the service; systemd credentials, decrypted by systemd
+  when the service starts; a key file; a Swarm secret. The bootstrap file's header names it.
+- **leftover temp file**: a save's new bootstrap file, left beside the old one by a crash; the next
+  save overwrites it. Not a corrupt bootstrap file.
 - **looser than its rule**: open to an account the rule does not name, or giving an account more than
   the rule allows.
 - **machine key pair**: the non-exportable Windows key pair made for one server, under which the OS
@@ -182,15 +185,13 @@ what the term is not.
 - **store**, **read**, **delete**, **status**, **deliver**: the five operations on secrets, and
   nothing more. "Store" is never the OS credential store; "deliver" is only ever to a helper
   program.
-- **unlock** (the bootstrap): unseal the bootstrap key from the OS credential store (or read it from
-  the key file), then unseal the file under it.
 - **value**: the opaque bytes a secret holds, which the vault never interprets. Not a setting's
   value in the configuration.
 - **vault key**: the one key every server keeps in its bootstrap file; each value's working key is
   derived from it; never stored in the database.
 - **vault-key change**: replacing the vault key and re-encrypting every value under the new one.
 - **vault-key fields**: the bootstrap file's fields that hold the vault key, the old and the new one
-  during a vault-key change; the only fields `hadv-service` changes. Not the vault-key version.
+  during a vault-key change. Not the vault-key version.
 - **vault-key schedule**: the yearly vault-key change, on by default, settable from 45 days to two
   years, switched off only by the #1 Sysop. Not the event subsystem's schedule as a whole.
 - **working key**: the key that encrypts one write of one value, derived from the vault key, owner,
