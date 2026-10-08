@@ -62,6 +62,9 @@ what the term is not.
   or the Windows service's command line), written by `hadv-setup`, changeable only by root or
   administrators. Not a registered server.
 - **session password**: the password two FidoNet-technology nodes share for a link.
+- **subsystem**: the one place responsible for a single job, which fits in one sentence without
+  "and". It owns that job's data and rules, and the rest of the system reaches it only through a
+  small interface. In Go, a package or a few.
 - **sysop**: anyone holding the Sysop role, who runs the board. **Sysop role**: the default role
   that runs the board.
 - **user**: a person who uses the board without the Sysop role.
