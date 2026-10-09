@@ -25,7 +25,7 @@ body:
     id: plan
     attributes:
       label: Plan
-      description: "Task list. The build session writes its plan here, never as a comment, and ticks each box with a one-line note as it lands."
+      description: "Task list. A plan session writes the plan here, never as a comment, and the developer approves it with the plan-approved label; the build session ticks each box with a one-line note as it lands."
       value: |
         - [ ]
   - type: textarea
