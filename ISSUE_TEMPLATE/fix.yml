@@ -1,0 +1,42 @@
+name: Fix
+description: A change to code that already works, for the loop. Only the developer opens one.
+labels: ["qa"]
+body:
+  - type: textarea
+    id: changed
+    attributes:
+      label: Behavior changed
+      description: "What the fix changes, one line each. QA writes a test for each line; it fails before the fix and passes after it."
+    validations:
+      required: true
+  - type: textarea
+    id: unchanged
+    attributes:
+      label: Behavior unchanged
+      description: "What must keep working, one line each, with the tests that prove it: existing tests by name, or new ones QA writes when nothing covers the line yet. They pass before the fix and after it."
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files
+      description: "The packages or files the fix may touch, never a contract.go. A change outside them is listed under its own heading in the PR or the PR is wrong."
+    validations:
+      required: true
+  - type: input
+    id: qa
+    attributes:
+      label: QA commit
+      description: "Filled in when the tests are approved, by the developer, with the short hash of the commit carrying `Helios-Role: qa`. The loop claims nothing without it."
+  - type: textarea
+    id: plan
+    attributes:
+      label: Plan
+      description: "Task list. A plan session writes the plan here, never as a comment, and the developer approves it with the plan-approved label; the build session ticks each box with a one-line note as it lands."
+      value: |
+        - [ ]
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: "What it is blocked by, in words beside the linked issues; the oracle; runner limits; anything else the session needs. Short."

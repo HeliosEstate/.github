@@ -1,0 +1,35 @@
+name: Task
+description: One unit of work for the loop. Only the developer opens one.
+labels: ["qa"]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Behavior
+      description: "The unit lines this task builds to, word for word from the unit's contract.go with their tags, one list item each. QA writes a test row for each untagged line; a [read] line is proved by reading the code at review, a [run] line by a run on a real system."
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files
+      description: "The packages or files the task may touch, never a contract.go. A change outside them is listed under its own heading in the PR or the PR is wrong."
+    validations:
+      required: true
+  - type: input
+    id: qa
+    attributes:
+      label: QA commit
+      description: "Filled in when the tests are approved, by the developer, with the short hash of the commit carrying `Helios-Role: qa`. The loop claims nothing without it."
+  - type: textarea
+    id: plan
+    attributes:
+      label: Plan
+      description: "Task list. A plan session writes the plan here, never as a comment, and the developer approves it with the plan-approved label; the build session ticks each box with a one-line note as it lands."
+      value: |
+        - [ ]
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: "What it is blocked by, in words beside the linked issues; the oracle; fuzz targets; runner limits; anything else the session needs. Short."
