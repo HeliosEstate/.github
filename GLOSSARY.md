@@ -38,6 +38,8 @@ what the term is not.
   the engine.
 - **negotiation**: the exchange of option requests between the engine and a caller, from the
   moment the engine accepts the caller until it ends the exchange.
+- **opening requests**: the option requests the engine sends first to a new caller, before reading
+  anything; in Part 1, WILL ECHO then WILL SGA. Not a reply to a request.
 - **option request**: a Telnet WILL, WONT, DO or DONT for one Telnet option, sent by either
   side.
 - **stop signal**: a signal from the sysop or the operating system that tells the engine to stop.
