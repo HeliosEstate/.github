@@ -6,6 +6,8 @@ what the term is not.
 
 ## The board, its people and its programs
 
+- **caller**: anyone or anything connected to one of the board's listeners for callers, signed in
+  or not. Not a user, which is a signed-in person without the Sysop role.
 - **engine**: `hadv-service`, the board's server program; its own subsystems are the ones compiled
   into it, not custom scripts.
 - **`hadv-setup`**: the setup wizard; it runs only on the server itself. Not `hadv-config` or
@@ -22,6 +24,10 @@ what the term is not.
 
 ## Design
 
+- **layer**: one part of a large outcome, brainstormed, specified and built on its own, recorded as
+  one Part of the outcome's brief.
+- **oracle**: what the tests check behavior against: an existing implementation, run as a black box
+  and never read, or one written for the tests, apart from the code it tests.
 - **trust boundary**: where data or control crosses from something less trusted into something
   more trusted: network input reaching the engine, a user's action reaching sysop powers, the
   board's own process calling the operating system as an administrator. Guards belong at these,
