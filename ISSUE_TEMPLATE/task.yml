@@ -6,7 +6,7 @@ body:
     id: behavior
     attributes:
       label: Behavior
-      description: "The unit lines this task builds to, word for word from the unit's contract.go with their tags, one list item each. QA writes a test row for each untagged line; a [read] line is proved by reading the code at review, a [run] line by a run on a real system."
+      description: "The lines this task builds to, word for word from its page in HeliosDesign (and any contract.go the page's costly decisions name), one list item each. QA writes test rows for each; a [read] line in a contract.go is proved by reading the code at review, a [run] line by a run on a real system."
     validations:
       required: true
   - type: textarea

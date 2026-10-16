@@ -10,28 +10,16 @@ what the term is not.
   or not. Not a user, which is a signed-in person without the Sysop role.
 - **engine**: `hadv-service`, the board's server program; its own subsystems are the ones compiled
   into it, not custom scripts.
-- **`hadv-setup`**: the setup wizard; it runs only on the server itself. Not `hadv-config` or
-  `hadv-config-gui`.
-- **local log**: the server's own record of the engine's events, one `key=value` line each,
-  written to standard output. Not the central audit system; a bare "log" means both.
+- **local log**: the server's own record of the engine's events, one line per event, each line
+  one key and its value (`key=value`), written to standard output. Not the central audit system; a bare "log" means both.
 - **log**: an entry in both the server's local log and the central audit system, unless a line
   names one.
 - **server**: one computer, physical or virtual, running the board.
-- **subsystem**: the one place responsible for a single job, which fits in one sentence without
-  "and". It owns that job's data and rules, and the rest of the system reaches it only through a
-  small interface. In Go, a package or a few.
-- **sysop**: anyone holding the Sysop role, who runs the board. **Sysop role**: the default role
-  that runs the board.
+- **sysop**: anyone holding the Sysop role, the default role that runs the board.
 - **user**: a person who uses the board without the Sysop role.
 
 ## Callers and connections
 
-- **connection flood**: the time from a connection refused over the cap until 10 seconds pass
-  with no refusal; the next refusal starts a new one. Not a flood of messages or of chat.
-- **connection ID**: the ID the engine gives each accepted connection, to tie together its lines
-  in the local log. Not a user's or a session's ID, and never anything the caller sent.
-- **forced stop**: a stop caused by a second stop signal or by closing the console window, in
-  which the engine closes the open connections at once.
 - **greeting**: the first text the engine writes to a caller after negotiation. Not a login
   screen.
 - **listener**: one address and port at which the engine accepts callers. Not a caller, and not
@@ -49,8 +37,8 @@ what the term is not.
 
 ## Design
 
-- **layer**: one part of a large outcome, brainstormed, specified and built on its own, recorded as
-  one Part of the outcome's brief.
+- **layer**: one part of a large outcome, brainstormed into a page of its own, then specified and
+  built on its own; `PROCESS.md` in HeliosDesign calls it a slice.
 - **oracle**: what the tests check behavior against: an existing implementation, run as a black box
   and never read, or one written for the tests, apart from the code it tests.
 - **trust boundary**: where data or control crosses from something less trusted into something
