@@ -22,6 +22,9 @@ what the term is not.
 
 - **greeting**: the first text the engine writes to a caller after negotiation. Not a login
   screen.
+- **kind of connection**: one way a caller reaches the board, such as Telnet or SSH: its
+  listeners, how it opens a connection (Telnet's negotiation, SSH's handshake) and its own close,
+  behind the same calls for every kind. Not a listener, which is one address and port.
 - **listener**: one address and port at which the engine accepts callers. Not a caller, and not
   the engine.
 - **negotiation**: the exchange of option requests between the engine and a caller, from the
@@ -30,6 +33,9 @@ what the term is not.
   anything; in Part 1, WILL ECHO then WILL SGA. Not a reply to a request.
 - **option request**: a Telnet WILL, WONT, DO or DONT for one Telnet option, sent by either
   side.
+- **shared execution path**: the part of the engine that serves every accepted connection the
+  same way, whatever its kind of connection: the cap on open connections, the ceiling on a call,
+  the session and the close. Not a listener, which only accepts.
 - **stop signal**: a signal from the sysop or the operating system that tells the engine to stop.
   Never anything a caller sends.
 - **Telnet option**: an option of the Telnet protocol, such as ECHO or SGA, that either side
