@@ -23,10 +23,11 @@ what the term is not.
 - **greeting**: the first text the engine writes to a caller after negotiation. Not a login
   screen.
 - **kind of connection**: one way a caller reaches the board, such as Telnet or SSH: its
-  listeners, how it opens a connection (Telnet's negotiation, SSH's handshake) and its own close,
-  behind the same calls for every kind. Not a listener, which is one address and port.
-- **listener**: one address and port at which the engine accepts callers. Not a caller, and not
-  the engine.
+  listener, how it opens a connection (Telnet's negotiation, SSH's handshake) and its own close,
+  behind the same calls for every kind. Not a listener, which only accepts.
+- **listener**: the part of the engine that accepts callers of one kind of connection, at every
+  address and port that kind listens on, with its own start and stop. Not a caller, not the
+  engine, and not the shared execution path.
 - **negotiation**: the exchange of option requests between the engine and a caller, from the
   moment the engine accepts the caller until it ends the exchange.
 - **opening requests**: the option requests the engine sends first to a new caller, before reading
@@ -41,8 +42,9 @@ what the term is not.
   Never anything a caller sends.
 - **subnegotiation**: the bytes from IAC SB to IAC SE in which a Telnet option carries its
   values, such as a caller's terminal type or window size. Not an option request.
-- **Synch**: the Telnet sequence IAC DM, sent with DM as TCP urgent data, which marks a point in
-  the stream; the engine sends one for each AO and IP a caller sends. Not urgent data alone.
+- **Synch**: the Telnet sequence IAC DM, which marks a point in the stream, with DM sent as TCP
+  urgent data on a plain Telnet connection and as an ordinary byte over TLS, which carries no
+  urgent data; the engine sends one for each AO and IP a caller sends. Not urgent data alone.
 - **Telnet option**: an option of the Telnet protocol, such as ECHO or SGA, that either side
   offers or refuses. Not a command-line option or any other kind of option.
 
