@@ -30,7 +30,8 @@ what the term is not.
 - **negotiation**: the exchange of option requests between the engine and a caller, from the
   moment the engine accepts the caller until it ends the exchange.
 - **opening requests**: the option requests the engine sends first to a new caller, before reading
-  anything; in Part 1, WILL ECHO then WILL SGA. Not a reply to a request.
+  anything; since Part 4, eight: WILL ECHO, WILL SGA, WILL BINARY, DO BINARY, DO TTYPE, DO NAWS,
+  DO NEW-ENVIRON and DO TSPEED. Not a reply to a request.
 - **option request**: a Telnet WILL, WONT, DO or DONT for one Telnet option, sent by either
   side.
 - **shared execution path**: the part of the engine that serves every accepted connection the
@@ -38,6 +39,10 @@ what the term is not.
   the session and the close. Not a listener, which only accepts.
 - **stop signal**: a signal from the sysop or the operating system that tells the engine to stop.
   Never anything a caller sends.
+- **subnegotiation**: the bytes from IAC SB to IAC SE in which a Telnet option carries its
+  values, such as a caller's terminal type or window size. Not an option request.
+- **Synch**: the Telnet sequence IAC DM, sent with DM as TCP urgent data, which marks a point in
+  the stream; the engine sends one for each AO and IP a caller sends. Not urgent data alone.
 - **Telnet option**: an option of the Telnet protocol, such as ECHO or SGA, that either side
   offers or refuses. Not a command-line option or any other kind of option.
 
