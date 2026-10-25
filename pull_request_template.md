@@ -16,4 +16,5 @@ Closes #
 - `bash check.sh`:
 
 **Noticed, not touched**
+<!-- Something this change saw and left alone, each filed as an issue; never this work's own next steps, which go on its step issue. -->
 -
