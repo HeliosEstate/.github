@@ -14,7 +14,12 @@ what the term is not.
   one key and its value (`key=value`), written to standard output. Not the central audit system; a bare "log" means both.
 - **log**: an entry in both the server's local log and the central audit system, unless a line
   names one.
+- **orchestrator**: the part of the engine that holds each of its services, starts and stops each
+  on its own, and reports the engine ready once every service turned on is ready. Not a service
+  manager, which runs the engine itself.
 - **server**: one computer, physical or virtual, running the board.
+- **service manager**: the operating system's program that starts, stops and watches the engine
+  as a service: Windows' Service Control Manager, or systemd on Linux. Not the orchestrator.
 - **sysop**: anyone holding the Sysop role, the default role that runs the board.
 - **user**: a person who uses the board without the Sysop role.
 
