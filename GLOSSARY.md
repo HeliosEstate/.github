@@ -53,6 +53,18 @@ what the term is not.
 - **Telnet option**: an option of the Telnet protocol, such as ECHO or SGA, that either side
   offers or refuses. Not a command-line option or any other kind of option.
 
+## The database
+
+- **connection file**: the file named on the engine's command line that says where the board's
+  database is and how the server signs in to it. Not a setting, which the database holds.
+- **lease**: a server's claim, written in its own row in the database, to be alive until a time by
+  the database's clock. The engine renews it while it runs; a server whose lease has ended counts
+  as gone.
+- **lease holder**: the random number one run of the engine writes when it takes its server's
+  lease, so that two runs for the same server are told apart.
+- **schema version**: the number the database holds saying which shape its records have. The
+  engine starts only against a version it supports.
+
 ## Design
 
 - **layer**: one part of a large outcome, brainstormed into a page of its own, then specified and
