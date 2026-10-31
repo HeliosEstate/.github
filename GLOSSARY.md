@@ -55,8 +55,18 @@ what the term is not.
 
 ## The database
 
+- **bootstrap file**: the encrypted file in the bootstrap folder that tells the engine where the
+  board's database is and how the server signs in to it, read before the database can be reached.
+  Not a setting, which the database holds.
+- **bootstrap folder**: the folder named on the engine's command line that holds the bootstrap
+  file and its key file. Not the folder the engine's programs are installed in.
 - **connection file**: the file named on the engine's command line that says where the board's
   database is and how the server signs in to it. Not a setting, which the database holds.
+- **key file**: the file in the bootstrap folder holding, unsealed, the key the bootstrap file is
+  encrypted under; used only where no stronger way of holding that key is available. Not an SSH
+  or TLS key file.
+- **key holder**: where a bootstrap file's key is kept, named by a number in the file's unencrypted
+  start: the key file, or a stronger way a later part adds. Not a person or an account.
 - **lease**: a server's claim, written in its own row in the database, to be alive until a time by
   the database's clock. The engine renews it while it runs; a server whose lease has ended counts
   as gone.
